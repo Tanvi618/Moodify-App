@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Moodify 🎵</title>
+  <link rel="stylesheet" href="moodify.css">
+</head>
+<body>
+  <!-- 🔹 Navbar -->
+  <nav>
+    <h1>Moodify</h1>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#moods">Moods</a></li>
+      <li><a href="#playlists">Playlists</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- 🔹 Home Section -->
+  <section id="home" class="section hero">
+    <h2>Welcome to Moodify 🎶</h2>
+    <p>Choose your mood and get the best Spotify playlists instantly!</p>
+  </section>
+
+  <!-- 🔹 About Section -->
+  <section id="about" class="section">
+    <h2>About</h2>
+    <p>Moodify helps you discover playlists based on how you feel. Just select your mood and enjoy 🎧</p>
+  </section>
+
+  <!-- 🔹 Mood Selection -->
+  <section id="moods" class="section">
+    <h2>Select Your Mood</h2>
+    <div class="mood-buttons">
+      <button onclick="loadPlaylists('happy')">😊 Happy</button>
+      <button onclick="loadPlaylists('sad')">😢 Sad</button>
+      <button onclick="loadPlaylists('party')">🎉 Party</button>
+      <button onclick="loadPlaylists('chill')">😎 Chill</button>
+      <button onclick="loadPlaylists('romantic')">❤️ Romantic</button>
+    </div>
+  </section>
+
+  <!-- 🔹 Playlist Section -->
+  <section id="playlists" class="section">
+    <h2 id="playlist-title">Playlists</h2>
+    <div id="playlist-container" class="playlist-grid"></div>
+  </section>
+
+  <!-- 🔹 Contact Section -->
+  <section id="contact" class="section">
+    <h2>Contact</h2>
+    <p>Made with ❤️ by Moodify Team</p>
+    <p>Email: moodifyapp@example.com</p>
+  </section>
+
+  <script src="moodify.js"></script>
+</body>
+</html>
+
