@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 app.use(cors());
 
-// ✅ Access Token
+// Access Token
 async function getAccessToken() {
   try {
     const response = await axios.post(
@@ -32,7 +32,7 @@ async function getAccessToken() {
   }
 }
 
-// ✅ Playlist route
+// Playlist route
 app.get("/api/playlists/:mood", async (req, res) => {
   try {
     const mood = req.params.mood;
@@ -64,5 +64,5 @@ app.get("/api/playlists/:mood", async (req, res) => {
   }
 });
 
-// ✅ Server Start
+// Server Start
 app.listen(5000, () => console.log("🎶 Server running on http://localhost:5000"));
