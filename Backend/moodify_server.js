@@ -1,12 +1,14 @@
-// moodify_server.js (VS Code / local)
-
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
+
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, "..", "Frontend")));
 
 // Spotify Access Token function
 async function getAccessToken() {
@@ -32,20 +34,17 @@ async function getAccessToken() {
   }
 }
 
-// Playlist route
+// API route for playlists
 app.get("/api/playlists/:mood", async (req, res) => {
   try {
     const mood = req.params.mood;
     const token = await getAccessToken();
 
     const response = await axios.get(
-      `https://api.spotify.com/v1/search?q=${encodeURIComponent(
-        mood
-      )}&type=playlist&limit=5`,
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(mood)}&type=playlist&limit=5`,
       { headers: { Authorization: "Bearer " + token } }
     );
 
-    // Defensive check
     const playlists =
       response.data.playlists?.items?.map((p) => ({
         name: p?.name || "Unknown",
@@ -60,8 +59,15 @@ app.get("/api/playlists/:mood", async (req, res) => {
   }
 });
 
-// Server start (local)
-const PORT = 5000;
-app.listen(PORT, () => console.log(`🎶 Server running on http://localhost:${PORT}`));
+// Catch-all route to serve frontend
+// Must be after all API routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "Frontend", "moodify_index.html"));
+});
+
+// Server start
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🎶 Server running on port ${PORT}`));
+
 
 
