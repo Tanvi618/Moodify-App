@@ -1,16 +1,12 @@
-// moodify_server.js
+// moodify_server.js (VS Code / local)
 
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
-const path = require("path");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
-
-// Serve static frontend files first
-app.use(express.static(path.join(__dirname, 'Frontend')));
 
 // Spotify Access Token function
 async function getAccessToken() {
@@ -49,6 +45,7 @@ app.get("/api/playlists/:mood", async (req, res) => {
       { headers: { Authorization: "Bearer " + token } }
     );
 
+    // Defensive check
     const playlists =
       response.data.playlists?.items?.map((p) => ({
         name: p?.name || "Unknown",
@@ -63,13 +60,8 @@ app.get("/api/playlists/:mood", async (req, res) => {
   }
 });
 
-// ⚡ Catch-all route for frontend (must be after API routes)
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Frontend', 'moodify_index.html'));
-});
-
-// Server start with Render-friendly PORT
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🎶 Server running on port ${PORT}`));
+// Server start (local)
+const PORT = 5000;
+app.listen(PORT, () => console.log(`🎶 Server running on http://localhost:${PORT}`));
 
 
